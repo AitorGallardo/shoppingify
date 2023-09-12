@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 import { NavSideBarComponent } from './components/nav-side-bar/nav-side-bar.component';
 import { ListSideBarComponent } from './components/list-side-bar/list-side-bar.component';
+import { CartAlertIconComponent } from './components/cart-alert-icon/cart-alert-icon.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ListSideBarComponent } from './components/list-side-bar/list-side-bar.c
     LayoutComponent,
     ItemsListComponent,
     NavSideBarComponent,
-    ListSideBarComponent
+    ListSideBarComponent,
+    CartAlertIconComponent
   ],
   imports: [
     BrowserModule,
