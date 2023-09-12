@@ -1,35 +1,33 @@
-<span
-  *ngFor="let item of supermarketItems"
-  id="badge-dismiss-dark"
-  class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-gray-800 bg-gray-100 rounded dark:bg-gray-700 dark:text-gray-300"
->
-  {{item}}
-  <button
-    type="button"
-    class="inline-flex items-center p-1 ml-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-gray-300"
-    data-dismiss-target="#badge-dismiss-dark"
-    aria-label="Remove"
+
+<div class="my-4" *ngFor="let category of displayedList">
+  <h1 class="mb-4 text-2xl font-extrabold">{{ category[0] }}</h1>
+  <span
+    *ngFor="let item of category[1]"
+    id="badge-dismiss-dark"
+    class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-gray-800 bg-gray-100 rounded dark:bg-gray-700 dark:text-gray-300"
   >
-    <svg
-      class="w-2 h-2"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 14 14"
+    {{ item.name }}
+    <button
+      type="button"
+      class="inline-flex items-center p-1 ml-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-gray-300"
+      data-dismiss-target="#badge-dismiss-dark"
+      aria-label="Remove"
     >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-      />
-    </svg>
-    <span class="sr-only">Remove badge</span>
-  </button>
-</span>
-<button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button>
-<div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-    Tooltip content
-    <div class="tooltip-arrow" data-popper-arrow></div>
+      <svg
+        class="w-2 h-2"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 18 18"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 1v16M1 9h16"
+        />
+      </svg>
+    </button>
+  </span>
 </div>
