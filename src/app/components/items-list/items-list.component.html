@@ -1,5 +1,5 @@
 
-<div class="my-4" *ngFor="let category of displayedList">
+<div class="my-4" *ngFor="let category of groupedGroceriesByCategory">
   <h1 class="mb-4 text-2xl font-extrabold">{{ category[0] }}</h1>
   <span
     *ngFor="let item of category[1]"
