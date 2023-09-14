@@ -54,7 +54,6 @@ export class GroceryService {
 
 
   getAllGroceries(): Observable<GroceryItem[]> {
-    console.log('entramos aqui')
     return of(this.supermarketItems);
 
     // return this.http.get(`${ this.url }/users?per_page=6&delay=3`)

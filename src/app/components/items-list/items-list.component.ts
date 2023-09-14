@@ -3,7 +3,7 @@ import { GroceryItem } from '../list-side-bar/list-side-bar.component';
 import { AppState } from 'src/app/store/app.reducers';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getAllGroceries } from 'src/app/store/actions';
+import { createGrocery, getAllGroceries } from 'src/app/store/actions';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { selectAllGroceriesValue } from 'src/app/store/selectors/grocery.selectors';
 
@@ -33,8 +33,7 @@ export class ItemsListComponent {
     });
     this.allGroceriesSubscription = this.store.pipe(select(selectAllGroceriesValue)).subscribe( (allGroceries) => {
       this.groupedGroceriesByCategory = this.groceryService.groupItemsByCategory(allGroceries);
-    }
-    );
+    });
   }
 
   ngOnDestroy() {
@@ -45,5 +44,9 @@ export class ItemsListComponent {
   initAllGroceries() {
     this.store.dispatch( getAllGroceries() );
   }
+
+  addItemToCart(item: GroceryItem) {
+    this.store.dispatch(createGrocery({grocery: item}));
+  } 
 
 }
