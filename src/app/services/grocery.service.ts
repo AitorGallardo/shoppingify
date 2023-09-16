@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { GroceryItem } from '../models/groceryItem';
+import { Category, DisplayedGroceriesList, Grocery, GroceryItem } from '../models/grocery';
 import { Observable, of } from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroceryService {
-
   private url = 'https://l.in/api';
 
   displayedList: [string, GroceryItem[]][] | [] = [];
-  supermarketItems: GroceryItem[] = [
+  supermarketItems: Grocery[] = [
     { id: 1, name: 'Bread', category: 'Bakery' },
     { id: 2, name: 'Milk', category: 'Dairy' },
     { id: 3, name: 'Eggs', category: 'Dairy' },
@@ -50,10 +48,9 @@ export class GroceryService {
     { id: 30, name: 'Soap', category: 'Personal Care' },
   ];
 
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
 
-
-  getAllGroceries(): Observable<GroceryItem[]> {
+  getAllGroceries(): Observable<Grocery[]> {
     return of(this.supermarketItems);
 
     // return this.http.get(`${ this.url }/users?per_page=6&delay=3`)
@@ -62,17 +59,15 @@ export class GroceryService {
     //       );
   }
 
-// TODO
-  createGrocery( id: string ) {
-    return this.http.get(`${ this.url }/users/${ id }`)
-          .pipe(
-            map( (resp:any) => resp['data'])
-          );
+  // TODO
+  createGrocery(id: string) {
+    return this.http
+      .get(`${this.url}/users/${id}`)
+      .pipe(map((resp: any) => resp['data']));
   }
 
-
   getGroupedGroceries(): Observable<[string, GroceryItem[]][]> {
-    if(this.displayedList.length > 0) {
+    if (this.displayedList.length > 0) {
       return of(this.displayedList);
     }
     this.displayedList = this.groupItemsByCategory(this.supermarketItems);
@@ -84,17 +79,23 @@ export class GroceryService {
     //       );
   }
 
-  groupItemsByCategory(items: GroceryItem[]) {
+  groupItemsByCategory(items: Grocery[]): any {
     const groupedObjectByCategory = items.reduce(
-      (result: Record<string, GroceryItem[]>, item: GroceryItem) => {
+      (result: Record<string, GroceryItem[]>, item: Grocery) => {
         const { category } = item;
 
         if (!result[category]) {
           result[category] = [];
         }
-
-        result[category].push(item);
-
+        if (result[category].some((i) => i.id === item.id)) {
+          result[category].map((i) => {
+            if (i.id === item.id) {
+              i.quantity++;
+            }
+          });
+        } else {
+          result[category].push(new GroceryItem(item));
+        }
         return result;
       },
       {}
@@ -102,5 +103,4 @@ export class GroceryService {
     const groupedArrayByCategory = Object.entries(groupedObjectByCategory);
     return groupedArrayByCategory;
   }
-
 }

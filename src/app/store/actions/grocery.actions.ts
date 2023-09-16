@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { GroceryItem } from '../../models/groceryItem';
+import { Grocery, GroceryItem } from '../../models/grocery';
 
 export const getAllGroceries = createAction(
     '[Grocery] Get All Groceries'
@@ -9,7 +9,7 @@ export const getSelectedGroceries = createAction(
 );
 export const loadAllGroceries = createAction(
     '[Grocery] Load All Groceries',
-    props<{ groceries: GroceryItem[] }>()
+    props<{ groceries: Grocery[] }>()
 );
 export const loadSelectedGroceries = createAction(
     '[Grocery] Load Selected Groceries',

@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { GroceryItem } from '../list-side-bar/list-side-bar.component';
 import { AppState } from 'src/app/store/app.reducers';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { createGrocery, getAllGroceries } from 'src/app/store/actions';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { selectAllGroceriesValue } from 'src/app/store/selectors/grocery.selectors';
+import { DisplayedGroceriesList, Grocery, GroceryItem } from 'src/app/models/grocery';
 
 
 
@@ -22,7 +22,7 @@ export class ItemsListComponent {
   groceriesSubscription: Subscription = new Subscription();
   allGroceriesSubscription: Subscription = new Subscription();
 
-  groupedGroceriesByCategory: [string, GroceryItem[]][] | [] = [];
+  groupedGroceriesByCategory: DisplayedGroceriesList = [];
 
   ngOnInit() {
     this.initAllGroceries();
@@ -45,8 +45,8 @@ export class ItemsListComponent {
     this.store.dispatch( getAllGroceries() );
   }
 
-  addItemToCart(item: GroceryItem) {
-    this.store.dispatch(createGrocery({grocery: item}));
+  addItemToCart(grocery: GroceryItem) {
+    this.store.dispatch(createGrocery({grocery}));
   } 
 
 }

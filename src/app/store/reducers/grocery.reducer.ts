@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { createGrocery, getAllGroceries, loadAllGroceries } from '../actions';
-import { GroceryItem } from 'src/app/models/groceryItem';
+import { Grocery, GroceryItem } from 'src/app/models/grocery';
 
 export interface GroceriesState {
   id: string | null;
-  allGroceries: GroceryItem[];
+  allGroceries: Grocery[];
   selectedGroceries: GroceryItem[];
   loaded: boolean;
   loading: boolean;
