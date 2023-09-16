@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { appReducers } from './store/app.reducers';
 import { EffectsArray } from './store/effects';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ItemChipComponent } from './components/items-list/item-chip/item-chip.component';
+import { ItemSelectedComponent } from './components/list-side-bar/item-selected/item-selected.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ItemsListComponent,
     NavSideBarComponent,
     ListSideBarComponent,
-    CartAlertIconComponent
+    CartAlertIconComponent,
+    ItemChipComponent,
+    ItemSelectedComponent
   ],
   imports: [
     BrowserModule,

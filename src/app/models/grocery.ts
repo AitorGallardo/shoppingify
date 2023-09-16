@@ -29,12 +29,12 @@ export class GroceryItem implements Grocery {
   category: Category;
   private _quantity: number;
 
-  constructor(groceryItem: Grocery | GroceryItem) {
-    this.id = groceryItem.id;
-    this.name = groceryItem.name;
-    this.category = groceryItem.category;
+  constructor(groceryItem?: Grocery | GroceryItem) {
+    this.id = groceryItem?.id ?? 0;
+    this.name = groceryItem?.name ?? '';
+    this.category = groceryItem?.category ?? 'Bakery';
 
-    if ('quantity' in groceryItem) {
+    if (groceryItem && 'quantity' in groceryItem) {
       this._quantity = groceryItem.quantity || 1;
     } else {
       this._quantity = 1; 

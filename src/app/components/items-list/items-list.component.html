@@ -1,31 +1,7 @@
 
 <div class="my-4" *ngFor="let category of groupedGroceriesByCategory">
   <h1 class="mb-4 text-2xl font-extrabold">{{ category[0] }}</h1>
-  <span
+  <app-item-chip
     *ngFor="let item of category[1]"
-    class="inline-flex items-center px-2 py-1 mr-2 text-sm font-medium text-gray-800 bg-gray-100 rounded dark:bg-gray-700 dark:text-gray-300"
-  >
-    {{ item.name }}
-    <button
-      type="button"
-      class="inline-flex items-center p-1 ml-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-gray-300"
-      (click)="addItemToCart(item)"
-    >
-      <svg
-        class="w-2 h-2"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 18 18"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 1v16M1 9h16"
-        />
-      </svg>
-    </button>
-  </span>
+    [item]="item"></app-item-chip>
 </div>
