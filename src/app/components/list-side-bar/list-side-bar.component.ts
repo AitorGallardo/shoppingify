@@ -25,8 +25,6 @@ export class ListSideBarComponent {
     this.selectedGroceriesListSubscription = this.store.pipe(select(selectSelectedGroceriesValue)).subscribe( (selectedGroceries) => {
       this.selectedGroceriesList = this.groceryService.groupItemsByCategory(selectedGroceries);
 
-      console.log('selected??',selectedGroceries  );
-      console.log('selectedFiltered??',this.selectedGroceriesList  );
     });
   }
 
