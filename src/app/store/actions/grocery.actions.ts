@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { Grocery, GroceryItem } from '../../models/grocery';
 
+export type UpdateSelectedGroceryOptions = 'add' | 'remove' | 'delete';
+
 export const getAllGroceries = createAction(
     '[Grocery] Get All Groceries'
 );
@@ -22,5 +24,9 @@ export const createGrocery = createAction(
 export const addSelectedGrocery = createAction(
     '[Grocery] Add Selected Grocery',
     props<{ groceryId: number }>()
+);
+export const updateSelectedGrocery = createAction(
+    '[Grocery] Update Selected Grocery',
+    props<{ groceryId: number, option:UpdateSelectedGroceryOptions }>()
 );
 

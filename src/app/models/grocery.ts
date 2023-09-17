@@ -53,13 +53,13 @@ export class GroceryItem implements Grocery {
     }
   }
 
-  add(_grocery: Grocery) {
-    this.quantity++;
+  add() {
+    this._quantity++;
   }
 
-  remove(_grocery: Grocery) {
+  remove() {
     if (this.quantity > 0) {
-      this.quantity--;
+      this._quantity--;
     }
   }
 }

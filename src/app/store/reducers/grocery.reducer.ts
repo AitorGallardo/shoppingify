@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { createGrocery, getAllGroceries, loadAllGroceries } from '../actions';
+import { createGrocery, getAllGroceries, loadAllGroceries, updateSelectedGrocery } from '../actions';
 import { Grocery, GroceryItem } from 'src/app/models/grocery';
+import { findGroceryAndUpdate } from 'src/app/helpers/groceryFunctions';
 
 export interface GroceriesState {
   id: string | null;
@@ -38,6 +39,11 @@ const _GroceriesReducer = createReducer(
   on(createGrocery, (state, { grocery }) => ({
     ...state,
     selectedGroceries: [...state.selectedGroceries, grocery],
+  })),
+
+  on(updateSelectedGrocery, (state, { groceryId, option }) => ({
+    ...state,
+    selectedGroceries: findGroceryAndUpdate(state, groceryId, option),
   }))
 );
 
