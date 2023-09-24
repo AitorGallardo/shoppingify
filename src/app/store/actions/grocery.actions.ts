@@ -29,4 +29,8 @@ export const updateSelectedGrocery = createAction(
     '[Grocery] Update Selected Grocery',
     props<{ groceryId: number, option:UpdateSelectedGroceryOptions }>()
 );
+export const setGroceryOpenedOptions = createAction(
+    '[Grocery] Set Grocery Opened Options',
+    props<{ groceryId: number}>()
+);
 

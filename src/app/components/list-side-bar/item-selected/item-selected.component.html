@@ -3,125 +3,191 @@
   with a little bounce and a bade in of the inner options instead of the blinking jump in of the options 
 -->
 
-
 <style>
-/* Option 1 based on scaling x */
- @-webkit-keyframes scale-up-hor-center {
-  0% {
-    -webkit-transform: scaleX(0.4);
-            transform: scaleX(0.4);
+  /* Option 1 based on scaling x */
+  @-webkit-keyframes scale-up-hor-center {
+    0% {
+      -webkit-transform: scaleX(0.4);
+      transform: scaleX(0.4);
+    }
+    50% {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+    100% {
+      -webkit-transform: scaleX(1.5);
+      transform: scaleX(1.5);
+    }
   }
-  50% {
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
+  @keyframes scale-up-hor-center {
+    0% {
+      -webkit-transform: scaleX(0.4);
+      transform: scaleX(0.4);
+    }
+    50% {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+    100% {
+      -webkit-transform: scaleX(1.5);
+      transform: scaleX(1.5);
+    }
   }
-  100% {
-    -webkit-transform: scaleX(1.5);
-            transform: scaleX(1.5);
-  }
-}
-@keyframes scale-up-hor-center {
-  0% {
-    -webkit-transform: scaleX(0.4);
-            transform: scaleX(0.4);
-  }
-  50% {
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-  100% {
-    -webkit-transform: scaleX(1.5);
-            transform: scaleX(1.5);
-  }
-}
 
-.scale-up-hor-center {
-	-webkit-animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
+  .scale-up-hor-center {
+    -webkit-animation: scale-up-hor-center 0.4s
+      cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: scale-up-hor-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  }
 
-/* Option 2 based on bigger width heigh x */
-    @keyframes animateWidhtHeight {
-  0% {
+  /* Option 2 based on bigger width heigh x */
+  @keyframes animateWidhtHeight {
+    0% {
+      width: 53px;
+      height: 28px;
+    }
+    50% {
+      width: 80px;
+      height: 33px;
+    }
+    75% {
+      width: 110px;
+      height: 38px;
+    }
+    100% {
+      width: 145px;
+      height: 43px;
+      border: none;
+    }
+  }
+  @keyframes animateWidhtHeightBackwards {
+    100% {
+      width: 53px;
+      height: 28px;
+    }
+    75% {
+      width: 80px;
+      height: 33px;
+    }
+    50% {
+      width: 110px;
+      height: 38px;
+    }
+    0% {
+      width: 145px;
+      height: 43px;
+      border: none;
+    }
+  }
+  .my-element {
     width: 53px;
-    height: 28px;
+    animation-iteration-count: 1;
+    animation-duration: 150ms;
+    animation-timing-function: linear; /* Timing function (e.g., linear, ease, ease-in) */
+    animation-fill-mode: forwards; /* Fills backwards applied styles when animation is done */
   }
-  50% {
-    width: 80px;
-    height: 33px;
-  }
-  75% {
-    width: 110px;
-    height: 38px;
-  }
-  100% {
+  .my-element.opened {
     width: 145px;
     height: 43px;
     border: none;
-
   }
-}
-@keyframes animateWidhtHeightBackwards {
-  100% {
-    width: 53px;
-    height: 28px;
+  .my-element.move {
+    animation-name: animateWidhtHeight;
   }
-  75% {
-    width: 80px;
-    height: 33px;
+  .my-element.move-backwards {
+    animation-name: animateWidhtHeightBackwards;
   }
-  50% {
-    width: 110px;
-    height: 38px;
-  }
-  0% {
-    width: 145px;
-    height: 43px;
-    border: none;
-
-  }
-}
-.my-element {
-  width: 53px;
-  animation-iteration-count: 1;
-  animation-duration: 150ms; 
-  animation-timing-function: linear; /* Timing function (e.g., linear, ease, ease-in) */
-  animation-fill-mode: forwards; /* Fills backwards applied styles when animation is done */
-}
-.my-element.move{
-    animation-name: animateWidhtHeight; 
-}
-.my-element.move-backwards{
-  animation-name: animateWidhtHeightBackwards; 
-}
 </style>
 
-<main class="relative flex justify-between items-center  cursor-pointer" (click)="showOptionsToggle()">
-    <span class="flex-1 whitespace-nowrap overflow-hidden text-ellipsis">{{item.name}}</span>
-    <div>
-    <div class="flex items-center text-center text-xs px-3 py-1 gap-1 border border-primary text-primary rounded-2xl my-element" [ngClass]="{'1' : 'move', '2' : 'move-backwards', '3' : ''}[animationState]">
-        <span *ngIf="!showOptions">{{item.quantity}}&nbsp;pcs</span>
+<main
+  class="relative flex justify-between items-center cursor-pointer"
+  (click)="showOptionsToggle()"
+>
+  <span class="flex-1 whitespace-nowrap overflow-hidden text-ellipsis">{{
+    item.name
+  }}</span>
+  <div>
+    <div (animationend)="animationEnd()"
+      class="flex items-center text-center text-xs px-3 py-1 gap-1 border border-primary text-primary rounded-2xl my-element"
+      [ngClass]="
+        {'0': 'opened', '1': 'move', '2': 'move-backwards', '3': '' }[animationState]
+      "
+    >
+      <span *ngIf="!showOptions">{{ item.quantity }}&nbsp;pcs</span>
 
-        <div *ngIf="showOptions" class="py-1 px-3 pl-0 bg-white rounded-2xl items-center transition-opacity delay-2000 duration-100"  [ngClass]="showOptions ? 'opacity-100 flex' : 'opacity-0 hidden'">
-            <button id="delete-item" type="button" class="text-white bg-primary focus:outline-none rounded-2xl text-xs p-2.5 text-center" (click)="deleteItem($event)">
-                <svg class="text-white w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>
-                  </svg>
-            </button>
-            <div class="p-2 hover:bg-gray-100 cursor-pointer rounded-3xl" (click)="removeItem($event)">
-              <svg class="text-primary w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
-              </svg>
-            </div>
-            <span class="text-xs px-3 py-1 border border-primary text-primary rounded-2xl">
-                {{item.quantity}}&nbsp;pcs
-            </span>
-            <div class="p-2 hover:bg-gray-100 cursor-pointer rounded-3xl" (click)="addItem($event)">
-              <svg class="text-primary w-3 h-3 hover:bg-gray-100 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-              </svg>
-            </div>  
+      <div
+        *ngIf="showOptions"
+        class="py-1 px-3 pl-0 bg-white rounded-2xl items-center transition-opacity delay-2000 duration-100"
+        [ngClass]="showOptions ? 'opacity-100 flex' : 'opacity-0 hidden'"
+      >
+        <button
+          id="delete-item"
+          type="button"
+          class="text-white bg-primary focus:outline-none rounded-2xl text-xs p-2.5 text-center"
+          (click)="deleteItem($event)"
+        >
+          <svg
+            class="text-white w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"
+            />
+          </svg>
+        </button>
+        <div
+          class="p-2 hover:bg-gray-100 cursor-pointer rounded-3xl"
+          (click)="removeItem($event)"
+        >
+          <svg
+            class="text-primary w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 2"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h16"
+            />
+          </svg>
         </div>
+        <span
+          class="text-xs px-3 py-1 border border-primary text-primary rounded-2xl"
+        >
+          {{ item.quantity }}&nbsp;pcs
+        </span>
+        <div
+          class="p-2 hover:bg-gray-100 cursor-pointer rounded-3xl"
+          (click)="addItem($event)"
+        >
+          <svg
+            class="text-primary w-3 h-3 hover:bg-gray-100 cursor-pointer"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 18 18"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 1v16M1 9h16"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </main>

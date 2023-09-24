@@ -9,7 +9,7 @@
       <h1 class="mb-1 text-xl font-bold underline">{{ category[0] }}</h1>
         <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400" *ngFor="let item of category[1]">
         <li class="flex items-center px-1">
-            <app-item-selected class="w-full p-2" [item]="item"/>
+            <app-item-selected class="w-full p-2" [item]="item" [isOpened]="isOpenedGroceryOptions(item.id)"/>
             <!-- <h3
             class="transition-all ease-in delay-1000 duration-1000 bg-blue-500 w-[300px] hover:bg-green-300 hover:text-white hover:w-[500px] "
           >

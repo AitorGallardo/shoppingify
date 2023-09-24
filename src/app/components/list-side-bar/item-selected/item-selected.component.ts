@@ -1,11 +1,9 @@
 import {
-  addSelectedGrocery,
-  createGrocery,
-  getAllGroceries,
+  setGroceryOpenedOptions,
   updateSelectedGrocery,
   UpdateSelectedGroceryOptions,
 } from './../../../store/actions/grocery.actions';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GroceryItem } from 'src/app/models/grocery';
 import { AppState } from 'src/app/store/app.reducers';
@@ -15,13 +13,30 @@ import { AppState } from 'src/app/store/app.reducers';
   templateUrl: './item-selected.component.html',
   styleUrls: ['./item-selected.component.css'],
 })
-export class ItemSelectedComponent {
+export class ItemSelectedComponent implements OnInit{
   private store = inject(Store<AppState>);
 
   @Input() item: GroceryItem = new GroceryItem();
+  @Input() isOpened: boolean = false;
 
+  quantity: number = 0;
   showOptions = false;
-  public animationState = '0'; //1: forward, 2: bakward 0: nothing
+  public animationState = '3'; //0:opened 1: forward, 2: bakward 3: nothing
+
+
+  ngOnInit() {
+    this.quantity = this.item.quantity;
+    this.showOptions = this.isOpened;
+    if(this.showOptions) {
+      this.animationState = '0';
+    }
+  }
+
+  animationEnd(){
+    const {id} = this.item;
+    this.store.dispatch( setGroceryOpenedOptions({ groceryId:id }) );
+  }
+ 
 
   showOptionsToggle() {
     this.showOptions = !this.showOptions;
