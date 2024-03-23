@@ -1,0 +1,29 @@
+<main class="flex justify-center w-[1200px] h-screen bg-gray-400">
+    <div class="carousel_wrapper w-1/2 flex flex-col bg-pink-400">
+        <tui-carousel
+        [duration]="4000"
+        [(index)]="index"
+        >
+        @for(item of items;track item;let i = $index){
+            <ng-container >
+                <div class="size-28 border" *tuiItem>
+                    <h2 class="tui-island__title">{{ item }}</h2>
+                    <!-- TODO: update documentation here -->
+                    <a
+                        href="https://en.wikipedia.org/wiki/{{ item }}"
+                        tuiButton
+                    >
+                        Wiki
+                    </a>
+                </div>
+            </ng-container>
+        }
+        </tui-carousel>
+        <tui-pagination
+        size="s"
+        class="pagination"
+        [length]="items.length"
+        [(index)]="index"
+    ></tui-pagination>
+    </div>
+</main>

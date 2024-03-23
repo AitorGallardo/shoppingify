@@ -1,3 +1,11 @@
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
+import {
+  TuiRootModule,
+  TuiDialogModule,
+  TuiAlertModule,
+  TUI_SANITIZER,
+} from '@taiga-ui/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,6 +24,7 @@ import { EffectsArray } from './store/effects';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ItemChipComponent } from './components/items-list/item-chip/item-chip.component';
 import { ItemSelectedComponent } from './components/list-side-bar/item-selected/item-selected.component';
+import { TuiCarouselComponent, TuiCarouselModule, TuiPaginationModule } from '@taiga-ui/kit';
 
 @NgModule({
   declarations: [
@@ -26,17 +35,27 @@ import { ItemSelectedComponent } from './components/list-side-bar/item-selected/
     ListSideBarComponent,
     CartAlertIconComponent,
     ItemChipComponent,
-    ItemSelectedComponent
+    ItemSelectedComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, 
+    HttpClientModule,
     StoreModule.forRoot(appReducers),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
-    EffectsModule.forRoot(EffectsArray)
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      connectInZone: true,
+    }),
+    EffectsModule.forRoot(EffectsArray),
+    BrowserAnimationsModule,
+    TuiRootModule,
+    TuiCarouselModule,
+    TuiPaginationModule,
+    TuiDialogModule,
+    TuiAlertModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
