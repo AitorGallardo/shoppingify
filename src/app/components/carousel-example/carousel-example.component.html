@@ -1,5 +1,6 @@
 <main class="flex justify-center w-[1200px] h-screen bg-gray-400">
-    <div class="carousel_wrapper w-1/2 flex flex-col bg-pink-400">
+    <tui-calendar-range (rangeChange)="hola()"></tui-calendar-range>
+    <div class="carousel_wrapper w-1/2 flex flex-col bg-green-400">
         <tui-carousel
         [duration]="4000"
         [(index)]="index"
