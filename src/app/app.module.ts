@@ -33,7 +33,7 @@ import { ItemSelectedComponent } from './components/list-side-bar/item-selected/
     AppRoutingModule,
     HttpClientModule, 
     StoreModule.forRoot(appReducers),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
     EffectsModule.forRoot(EffectsArray)
   ],
   providers: [],
